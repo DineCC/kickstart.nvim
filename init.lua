@@ -376,11 +376,11 @@ require('lazy').setup({
           map('n', '<leader>hd', ':Gvdiffsplit<CR>', { desc = 'Compare Git Diff' })
 
           map('n', '<leader>hD', function()
-            gitsigns.diffthis '~'
+            gitsigns.diffthis { '~' }
           end)
 
           map('n', '<leader>hQ', function()
-            gitsigns.setqflist 'all'
+            gitsigns.setqflist { 'all' }
           end)
           map('n', '<leader>hq', gitsigns.setqflist)
 
