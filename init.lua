@@ -99,7 +99,10 @@ vim.g.have_nerd_font = true
 --  For more options, you can see `:help option-list`
 
 -- Make line numbers default
-vim.o.number = true
+-- * If both following options are set to true, snacks.nvim is needed to have only one number column
+vim.o.nu = true -- short of vim.o.number
+vim.o.rnu = true -- short of vim.o.relativenumber
+
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 -- vim.o.relativenumber = true
