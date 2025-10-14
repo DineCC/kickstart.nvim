@@ -580,7 +580,7 @@ return {
       vim.keymap.set('n', '<leader>dD', dap.clear_breakpoints, { desc = 'DAP: Clear Breakpoints' })
 
       -- * compile current .cpp file with debug mode
-      vim.keymap.set('n', '<leader>dm', '<cmd>!clang++ % -o debug -g<CR>', { desc = 'DAP: Breakpoint' })
+      vim.keymap.set('n', '<leader>dm', '<cmd>!clang++ % -std=c++23 -g -o debug<CR>', { desc = 'DAP: Compile for Debugging' })
       vim.keymap.set('n', '<leader>da', dapview.add_expr, { desc = 'DAP-VIEW: Add to Watch' })
       vim.keymap.set('n', '<leader>dn', dapview.navigate, { desc = 'DAP-VIEW: Switch View' })
 
