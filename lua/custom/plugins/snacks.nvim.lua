@@ -77,26 +77,29 @@ return {
       end,
       desc = 'Buffers',
     },
+    -- *
     {
-      '<leader>fc',
+      '<leader>sn',
       function()
         Snacks.picker.files { cwd = vim.fn.stdpath 'config' }
       end,
-      desc = 'Find Config File',
+      desc = 'Seek Neovim Config File',
     },
+    -- *
     {
-      '<leader>ff',
+      '<leader>sf',
       function()
         Snacks.picker.files()
       end,
-      desc = 'Find Files',
+      desc = 'Seek Files',
     },
+    -- *
     {
-      '<leader>fg',
+      '<leader>sG',
       function()
         Snacks.picker.git_files()
       end,
-      desc = 'Find Git Files',
+      desc = 'Seek Git Files',
     },
     {
       '<leader>fp',
@@ -105,8 +108,9 @@ return {
       end,
       desc = 'Projects',
     },
+    -- *
     {
-      '<leader>fr',
+      '<leader>sr',
       function()
         Snacks.picker.recent()
       end,
