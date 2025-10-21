@@ -19,7 +19,7 @@ return {
         },
       },
       highlights = {
-        buffer_selected = { bg = '#15161e' },
+        -- buffer_selected = { bg = '#15161e' },
         fill = { bg = '#1a1b26' },
       },
     }
