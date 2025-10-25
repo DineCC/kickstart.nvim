@@ -24,7 +24,16 @@ return {
       notification = {
         -- wo = { wrap = true } -- Wrap notifications
       },
+      snacks_image = {
+        relative = 'editor',
+        border = true,
+        row = 0,
+        -- * negative value sets the position of the floating window starts from right screen edge instead of left
+        col = -1,
+        -- width/height are automatically set by the image size unless specified below
+      },
     },
+    image = { enabled = true, doc = { max_width = 40, max_height = 40 } },
   },
   keys = {
     -- Top Pickers & Explorer
@@ -268,6 +277,7 @@ return {
       end,
       desc = 'Highlights',
     },
+    -- * this action seems need some time to initialize when first invoked, and it will look like the entire neovim frozened
     {
       '<leader>si',
       function()
@@ -397,13 +407,13 @@ return {
       desc = 'LSP Workspace Symbols',
     },
     -- Other
-    {
-      '<leader>z',
-      function()
-        Snacks.zen()
-      end,
-      desc = 'Toggle Zen Mode',
-    },
+    -- {
+    --   '<leader>z',
+    --   function()
+    --     Snacks.zen()
+    --   end,
+    --   desc = 'Toggle Zen Mode',
+    -- },
     {
       '<leader>Z',
       function()

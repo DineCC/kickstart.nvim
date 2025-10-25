@@ -482,6 +482,8 @@ require('lazy').setup({
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
 
         { '<leader>d', group = 'dap' },
+        { '<leader>z', group = 'Zettelkasten' },
+        { '<leader>zn', group = 'Create' },
       },
     },
   },
@@ -808,6 +810,9 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        codelldb = {},
+        -- zk = {}, -- seem not needed since zk cli is installed and we need zk cli to create new notebooks anyway
+
         clangd = {},
         -- gopls = {},
         -- pyright = {},
