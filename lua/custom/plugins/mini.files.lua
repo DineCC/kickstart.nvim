@@ -6,6 +6,11 @@ return {
       mappings = {
         go_in_plus = '<CR>',
       },
+      options = {
+        -- This is a module-specific variant of "remove to trash".
+        -- Target directory is 'mini.files/trash' inside standard path of Neovim data directory (execute `:echo stdpath('data')` to see its path in your case).
+        permanent_delete = false,
+      },
     }
     vim.keymap.set('n', '-', MiniFiles.open, { desc = 'Open MiniFiles' })
 
