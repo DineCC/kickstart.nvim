@@ -477,7 +477,7 @@ return {
         position = 'below',
         terminal = {
           width = 0.375,
-          position = 'right',
+          position = 'left',
           -- List of debug adapters for which the terminal should be ALWAYS hidden
           hide = {},
           -- Hide the terminal when starting a new session
@@ -507,7 +507,7 @@ return {
       -- Only a subset of the options is available: newtab, useopen, usetab and uselast
       -- Can also be a function that takes the current winnr and the bufnr that will jumped to
       -- If a function, should return the winnr of the destination window
-      switchbuf = 'usetab',
+      switchbuf = 'uselast',
       -- Auto open when a session is started and auto close when all sessions finish
       auto_toggle = true,
       -- Reopen dapview when switching tabs
