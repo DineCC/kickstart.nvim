@@ -103,6 +103,13 @@ return {
       end,
       desc = 'Seek Files',
     },
+    {
+      '<leader>sl',
+      function()
+        Snacks.picker.files { cwd = vim.fn.expand '%:p:h' .. '/' }
+      end,
+      desc = "Seek Files in current file's location",
+    },
     -- *
     {
       '<leader>sG',
@@ -235,15 +242,17 @@ return {
       end,
       desc = 'Buffer Lines',
     },
+    -- * '<leader>:' does the same thing
     {
-      '<leader>sc',
+      '<leader>sC',
       function()
         Snacks.picker.command_history()
       end,
       desc = 'Command History',
     },
+    -- *
     {
-      '<leader>sC',
+      '<leader>sc',
       function()
         Snacks.picker.commands()
       end,
@@ -300,7 +309,7 @@ return {
       desc = 'Keymaps',
     },
     {
-      '<leader>sl',
+      '<leader>sL',
       function()
         Snacks.picker.loclist()
       end,
@@ -427,6 +436,23 @@ return {
         Snacks.scratch()
       end,
       desc = 'Toggle Scratch Buffer',
+    },
+    {
+      '<leader>T.',
+      function()
+        -- Can implement your own logic for saving files by cwd, project, git branch, etc.
+        local data = vim.fn.stdpath 'data'
+        local root = data .. '/snacks/todo'
+        vim.fn.mkdir(root, 'p')
+        local file = root .. '/todo.md' -- IMPORTANT: must match checkmate `files` pattern
+
+        ---@diagnostic disable-next-line: missing-fields
+        Snacks.scratch.open {
+          ft = 'markdown',
+          file = file,
+        }
+      end,
+      desc = 'Toggle Scratch Todo',
     },
     {
       '<leader>S',
