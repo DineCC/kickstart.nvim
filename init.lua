@@ -212,6 +212,45 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 --
 -- NOTE: My custom keymaps
 
+-- * modified gx keybind that can open files with relative path using current file location
+do
+  local function do_open(uri)
+    if uri and not uri:match '^%w+://' and not vim.loop.fs_stat(uri) then
+      local base = vim.fn.expand '%:p:h'
+      local abs = vim.fn.fnamemodify(base .. '/' .. uri, ':p')
+      if vim.loop.fs_stat(abs) then
+        uri = abs
+      end
+    end
+
+    local cmd, err = vim.ui.open(uri)
+    local rv = cmd and cmd:wait(1000) or nil
+    if cmd and rv and rv.code ~= 0 then
+      err = ('vim.ui.open: command %s (%d): %s'):format((rv.code == 124 and 'timeout' or 'failed'), rv.code, vim.inspect(cmd.cmd))
+    end
+    return err
+  end
+
+  local gx_desc = 'Opens filepath or URI under cursor with the system handler (file explorer, web browser, …)'
+  vim.keymap.set({ 'n' }, 'gx', function()
+    for _, url in ipairs(require('vim.ui')._get_urls()) do
+      local err = do_open(url)
+      if err then
+        vim.notify(err, vim.log.levels.ERROR)
+      end
+    end
+  end, { desc = gx_desc })
+
+  vim.keymap.set({ 'x' }, 'gx', function()
+    local lines = vim.fn.getregion(vim.fn.getpos '.', vim.fn.getpos 'v', { type = vim.fn.mode() })
+    local uri = table.concat(vim.iter(lines):map(vim.trim):totable())
+    local err = do_open(uri)
+    if err then
+      vim.notify(err, vim.log.levels.ERROR)
+    end
+  end, { desc = gx_desc })
+end
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -680,7 +719,7 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+          map('ga', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
 
           -- Find references for the word under your cursor.
           -- map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -1097,9 +1136,9 @@ require('lazy').setup({
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
+        additional_vim_regex_highlighting = { 'ruby', 'c', 'cpp' },
       },
-      indent = { enable = true, disable = { 'ruby' } },
+      indent = { enable = true, disable = { 'ruby', 'c', 'cpp' } },
     },
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
