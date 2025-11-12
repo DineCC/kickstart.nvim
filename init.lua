@@ -1034,6 +1034,14 @@ require('lazy').setup({
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
+
+        -- In C++, when type words after '<', auto-completion from lsp somehow won't work.
+        -- But we can use a workaround that put '<' into the block list of trigger characters, and this can actually solve the problem mentioned above!
+        -- I think lsp may keep looking for completions of '<' character, and there is none, so nothing shows up.
+
+        trigger = {
+          show_on_blocked_trigger_characters = { ' ', '\n', '\t', '<' },
+        },
       },
 
       sources = {
